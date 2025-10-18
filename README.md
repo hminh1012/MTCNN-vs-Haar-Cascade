@@ -96,21 +96,58 @@ jupyter
 
 ## Conclusions
 
-This section will be updated with detailed findings from our comparison, including:
-- Strengths and weaknesses of each method
-- Recommended use cases
-- Performance trade-offs
+## 🔹 Model MCTNN
 
+**Observations:**
+- Both training and validation losses decrease rapidly and stabilize at low values.  
+- Validation accuracy increases quickly and remains high, closely following the training accuracy.  
+- Minimal gap between train and validation curves indicates strong generalization.  
+- No significant overfitting or underfitting observed.  
 
-## [Other face detection methods to consider](https://pyimagesearch.com/2018/02/26/face-detection-with-opencv-and-deep-learning/)
-Face detection with Haar cascades: Extremely fast but prone to false-positives and in general less accurate than deep learning-based face detectors
-Face detection with dlib (HOG and CNN): HOG is more accurate than Haar cascades but computationally more expensive. Dlib’s CNN face detector is the most accurate of the bunch but cannot run in real-time without a GPU.
-Multi-task Cascaded Convolutional Networks (MTCNNs): Very accurate deep learning-based face detector. Easily compatible with both Keras and TensorFlow.
+**Conclusion:**  
+Model MCTNN shows stable convergence, balanced learning, and reliable performance on unseen data.
+
+---
+
+## 🔹 Model Haar Cascade
+
+**Observations:**
+- Loss curves also drop quickly, suggesting efficient training.  
+- Validation accuracy reaches 100% within only a few epochs, while training accuracy rises more slowly.  
+- Large gap between training and validation accuracy may indicate **overfitting** or possible **data leakage**.  
+- Validation set may not accurately represent the difficulty of the overall dataset.  
+
+**Conclusion:**  
+Model Haar Cascade appears to learn faster but may not generalize well. The validation performance seems overly optimistic and requires further verification.
+
+---
+
+## ⚖️ Overall Comparison
+
+| Criteria | Model MCTNN | Model Haar Cascade |
+|-----------|----------|----------|
+| Convergence Speed | Fast | Very Fast |
+| Stability | High | High |
+| Train–Val Gap | Small | Large |
+| Generalization | Strong | Questionable |
+| Reliability | ✅ More Reliable | ⚠️ Needs Verification |
+
+---
+
+## ✅ Final Remark
+- Model MCTNN provides a **more balanced and trustworthy performance**.  
+- Model Haar Cascade’s unusually high validation accuracy suggests **overfitting or validation leakage**.  
+- Further investigation into data splits or additional regularization is recommended before deployment.
+
+## [Reference](https://pyimagesearch.com/2018/02/26/face-detection-with-opencv-and-deep-learning/)
+- Face detection with Haar cascades: Extremely fast but prone to false-positives and in general less accurate than deep learning-based face detectors
+- Face detection with dlib (HOG and CNN): HOG is more accurate than Haar cascades but computationally more expensive. Dlib’s CNN face detector is the most accurate of the bunch but cannot run in real-time without a GPU.
+- Multi-task Cascaded Convolutional Networks (MTCNNs): Very accurate deep learning-based face detector. Easily compatible with both Keras and TensorFlow.
 
 
 ## Cre
 
-**Kaggle** - [@link](https://www.kaggle.com/code/mk98kr/cnn-mtcnn-vs-haarcascade-face-detection?fbclid=IwY2xjawNgYe1leHRuA2FlbQIxMABicmlkETFOOElGNXBYQVVJWExIaEFZAR4VV81-vkELKLmkQg8DX1S-H4UVDP1dIQ8iPDhVuvOKt8BOlKNfwicam2ng9Q_aem_A1be-2j7c3x9Zq0DE2XQyw)
+**Kaggle** - [@link](https://www.kaggle.com/code/mk98kr/cnn-mtcnn-vs-Haar Cascade-face-detection?fbclid=IwY2xjawNgYe1leHRuA2FlbQIxMABicmlkETFOOElGNXBYQVVJWExIaEFZAR4VV81-vkELKLmkQg8DX1S-H4UVDP1dIQ8iPDhVuvOKt8BOlKNfwicam2ng9Q_aem_A1be-2j7c3x9Zq0DE2XQyw)
 
 ## License
 
