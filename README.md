@@ -1,99 +1,124 @@
+# MTCNN vs Haar Cascade Face Detection
 
-# Jupyter Notebook: CNN, MTCNN vs. Haar Cascade Face Detection
-*(Analysis of Jupyter Notebook: CNN, MTCNN vs. Haar Cascade Face Detection)*
+## Introduction
 
-## 🇻🇳 Tiếng Việt
+Face detection is a crucial component in computer vision and image processing applications. This project presents a comprehensive comparison between two prominent face detection methods: MTCNN (Multi-Task Cascaded Convolutional Networks) and Haar Cascade Classifier. By analyzing these two approaches, we aim to provide insights into their strengths, weaknesses, and optimal use cases.
 
-### **Mục đích chính**
+## Project Overview
 
-Notebook này tập trung vào việc xây dựng một quy trình **nhận dạng khuôn mặt (Face Recognition)** bằng cách sử dụng bộ dữ liệu **Yale Face Database**. Trọng tâm của file là tiền xử lý dữ liệu, cụ thể là sử dụng thuật toán **MTCNN (Multi-task Cascaded Convolutional Networks)** để phát hiện, cắt và chuẩn hóa hình ảnh khuôn mặt. Dữ liệu sau khi xử lý sẽ sẵn sàng để huấn luyện một mô hình **Mạng Nơ-ron Tích chập (CNN)** cho nhiệm vụ nhận dạng.
+### What is MTCNN?
+MTCNN (Multi-task Cascaded Convolutional Networks) is a deep learning-based face detection method that uses three stages of carefully designed convolutional networks to detect faces and facial landmarks. It is known for:
+- High accuracy in face detection
+- Ability to detect faces in various poses and orientations
+- Facial landmark detection capabilities
+- Robust performance under different lighting conditions
 
-### **Nội dung chi tiết**
+### What is Haar Cascade?
+Haar Cascade is a machine learning-based approach that uses cascade classifiers trained with positive and negative images. Key characteristics include:
+- Fast processing speed
+- Lower computational requirements
+- Good performance for frontal face detection
+- Sensitivity to lighting and face orientation
 
-#### **1. Chuẩn bị môi trường và dữ liệu**
+## Project Objectives
 
-* **Thư viện sử dụng:**
-    * `numpy`: Thao tác với mảng và ma trận.
-    * `cv2` (OpenCV): Thư viện xử lý thị giác máy tính.
-    * `matplotlib.pyplot` & `PIL`: Hiển thị và xử lý hình ảnh.
-    * `os` & `shutil`: Tương tác với hệ thống file.
-    * `split-folders`: Tiện ích giúp phân chia bộ dữ liệu.
-    * `mtcnn`: Thư viện chứa mô hình MTCNN đã được huấn luyện sẵn.
+- Compare the accuracy of MTCNN and Haar Cascade in face detection
+- Analyze performance under different conditions:
+  - Various lighting conditions
+  - Different face angles
+  - Multiple faces in one image
+  - Different image resolutions
+- Measure and compare processing speed
+- Provide practical insights for choosing between these methods
 
-* **Bộ dữ liệu:** Sử dụng **"Yale Face Database"**, một bộ dữ liệu kinh điển chứa hình ảnh của nhiều người với các biểu cảm khác nhau.
+## Implementation Details
 
-#### **2. Tiền xử lý dữ liệu**
+### MTCNN Implementation
+- Using deep learning architecture
+- Three-stage detection pipeline:
+  1. Proposal Network (P-Net)
+  2. Refinement Network (R-Net)
+  3. Output Network (O-Net)
+- Face landmark detection capability
 
-* **Tổ chức lại dữ liệu:**
-    1.  Các file ảnh được đổi tên để có đuôi tệp `.jpg` thống nhất.
-    2.  Dữ liệu được sắp xếp vào các thư mục con, mỗi thư mục tương ứng với một người (subject).
+### Haar Cascade Implementation
+- Using OpenCV's implementation
+- Cascade classifier approach
+- Rapid object detection framework
+- Pre-trained model utilization
 
-* **Phân chia bộ dữ liệu:** Dữ liệu được chia tự động thành 3 tập theo tỉ lệ:
-    * **`train` (80%):** Dữ liệu dùng để huấn luyện mô hình.
-    * **`val` (10%):** Dữ liệu dùng để tinh chỉnh mô hình.
-    * **`test` (10%):** Dữ liệu dùng để kiểm tra hiệu suất cuối cùng.
+## Project Structure
 
-#### **3. Phát hiện khuôn mặt với MTCNN**
+```
+├── data/
+│   ├── test_images/
+│   └── training_images/
+├── notebooks/
+│   ├── 1_data_preparation.ipynb
+│   ├── 2_haar_cascade_implementation.ipynb
+│   ├── 3_mtcnn_implementation.ipynb
+│   └── 4_comparison_analysis.ipynb
+├── results/
+│   ├── haar_cascade_results/
+│   └── mtcnn_results/
+└── src/
+    ├── haar_cascade/
+    └── mtcnn/
+```
 
-* **Thuật toán MTCNN:** Là một mô hình học sâu tiên tiến, sử dụng chuỗi các mạng CNN để phát hiện khuôn mặt và các đặc điểm của nó với độ chính xác cao.
-* **Hàm `detect_face`:**
-    1.  Đọc file ảnh đầu vào.
-    2.  Dùng detector MTCNN để tìm khuôn mặt.
-    3.  Cắt (crop) vùng ảnh chứa khuôn mặt.
-    4.  Thay đổi kích thước ảnh khuôn mặt về kích thước chuẩn là **160x160 pixels**.
 
-### **Tóm tắt quy trình**
 
-1.  **Khởi tạo:** Tải và chuẩn bị bộ dữ liệu.
-2.  **Phân chia:** Chia dữ liệu thành 3 tập: `train`, `validation`, và `test`.
-3.  **Phát hiện và trích xuất:** Dùng **MTCNN** để tìm, cắt và chuẩn hóa các khuôn mặt.
-4.  **Hoàn thành:** Xuất ra các bộ dữ liệu đã được xử lý, sẵn sàng cho bước huấn luyện mô hình nhận dạng.
+### Prerequisites
+```python
+# Required packages
+opencv-python
+tensorflow
+mtcnn
+numpy
+matplotlib
+jupyter
+```
 
----
 
-## 🇬🇧 English
 
-### **Main Purpose**
+## Comparison Results
 
-This notebook focuses on building a **Face Recognition** pipeline using the **Yale Face Database**. The core of the file is data preprocessing, specifically using the **MTCNN (Multi-task Cascaded Convolutional Networks)** algorithm to detect, crop, and normalize face images. The processed data is then ready for training a **Convolutional Neural Network (CNN)** model for the recognition task.
+### Performance Metrics
+- Detection accuracy
+- Processing time
+- False positive rate
+- False negative rate
 
-### **Detailed Content**
+### Visual Comparisons
+- Side-by-side detection results
+- Performance graphs
+- Error analysis
 
-#### **1. Environment and Data Setup**
+## Conclusions
 
-* **Libraries Used:**
-    * `numpy`: For array and matrix operations.
-    * `cv2` (OpenCV): A computer vision library.
-    * `matplotlib.pyplot` & `PIL`: For displaying and handling images.
-    * `os` & `shutil`: For interacting with the file system.
-    * `split-folders`: A utility to help split the dataset.
-    * `mtcnn`: A library containing the pre-trained MTCNN model.
+This section will be updated with detailed findings from our comparison, including:
+- Strengths and weaknesses of each method
+- Recommended use cases
+- Performance trade-offs
 
-* **Dataset:** Uses the **"Yale Face Database"**, a classic dataset containing images of multiple subjects with various expressions.
 
-#### **2. Data Preprocessing**
+## [Other face detection methods to consider](https://pyimagesearch.com/2018/02/26/face-detection-with-opencv-and-deep-learning/)
+Face detection with Haar cascades: Extremely fast but prone to false-positives and in general less accurate than deep learning-based face detectors
+Face detection with dlib (HOG and CNN): HOG is more accurate than Haar cascades but computationally more expensive. Dlib’s CNN face detector is the most accurate of the bunch but cannot run in real-time without a GPU.
+Multi-task Cascaded Convolutional Networks (MTCNNs): Very accurate deep learning-based face detector. Easily compatible with both Keras and TensorFlow.
 
-* **Data Reorganization:**
-    1.  Image files are renamed to have a consistent `.jpg` extension.
-    2.  The data is sorted into subdirectories, with each directory corresponding to one subject.
 
-* **Dataset Splitting:** The data is automatically split into 3 sets with the following ratio:
-    * **`train` (80%):** Data used to train the model.
-    * **`val` (10%):** Data used for model validation and tuning.
-    * **`test` (10%):** Data used for final performance evaluation.
+## Cre
 
-#### **3. Face Detection with MTCNN**
+**Kaggle** - [@link](https://www.kaggle.com/code/mk98kr/cnn-mtcnn-vs-haarcascade-face-detection?fbclid=IwY2xjawNgYe1leHRuA2FlbQIxMABicmlkETFOOElGNXBYQVVJWExIaEFZAR4VV81-vkELKLmkQg8DX1S-H4UVDP1dIQ8iPDhVuvOKt8BOlKNfwicam2ng9Q_aem_A1be-2j7c3x9Zq0DE2XQyw)
 
-* **MTCNN Algorithm:** An advanced deep learning model that uses a cascade of CNNs to detect faces and their landmarks with high accuracy.
-* **`detect_face` Function:**
-    1.  Reads an input image file.
-    2.  Uses the MTCNN detector to find a face.
-    3.  Crops the region of the image containing the face.
-    4.  Resizes the cropped face image to a standard size of **160x160 pixels**.
+## License
 
-### **Process Summary**
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-1.  **Initialization:** Load and prepare the dataset.
-2.  **Splitting:** Divide the data into `train`, `validation`, and `test` sets.
-3.  **Detection & Extraction:** Use **MTCNN** to find, crop, and normalize faces.
-4.  **Completion:** Output the processed datasets, ready for the recognition model training step.
+## Acknowledgments
+
+- Thanks to the OpenCV community
+- MTCNN paper authors and implementers
+- Contributors to face detection research
+
